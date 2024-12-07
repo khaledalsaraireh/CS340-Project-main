@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{# Citation for the following
+Date: 12/2/24
+Adapted from Flask Starter App Guide
+Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py #}
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Fantasy Football Manager</title>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+      <meta>
+
+      
+   </head>
+      </head>
+   <body>
+      <header>
+         <h1>Fantasy Football Manager</h1>
+      </header>
+      <nav>
+         <a href="/">Home</a>
+         <a href="players">Players</a>
+         <a href="teams">Teams</a>
+         <a href="team_owners">Team Owners</a>
+         <a href="leagues">Leagues</a>
+         <a href="matches">Matches</a>
+         <a href="team_rosters">Players in Teams</a>
+      </nav>
+      <main>
+      <div id="edit">
+<h2>Update Match Information:</h2>
+<form id="insertMatch" action="/matches" method="post">
+                
+                <label for="week">Week Played:</label>
+                <input type="text" id="week" name="week"><br>
+                <label for="hometeamscore">Home Team Score:</label>
+                <input type="text" id="hometeamscore" name="hometeamscore"><br>
+                <label for="awayteamscore">Away Team Score:</label>
+                <input type="text" id="awayteamscore" name="awayteamscore"><br>
+                <label for="home">Home Team</label>
+                <br>
+                <select id="home" name="home" required>
+                {% for item in teamData %}
+                <option value="{{ item['teamID'] }}">{{item["teamName"]}}</option>
+                {% endfor %}
+                
+                
+                </select> <br>
+                <label for="away">Away Team</label><br>
+                <select id="away" name="away" required>
+                {% for item in teamData %}
+                <option value="{{ item['teamID'] }}">{{item["teamName"]}}</option>
+                {% endfor %}</select><br>
+
+                <input type="submit" value="Edit Match" name="Edit_Match" class="btn btn-primary" style="margin:.5rem;">
+
+
+            </form>
+
+   </div>
+
+   
+
+     
+
+   
+   </body>
+
+   
+</html>

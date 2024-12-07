@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+{# Citation for the following
+Date: 12/2/24
+Adapted from Flask Starter App Guide
+Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py #}
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Fantasy Football Manager</title>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+      <meta>
+
+      
+   </head>
+      </head>
+   <body>
+      <header>
+         <h1>Fantasy Football Manager</h1>
+      </header>
+      <nav>
+         <a href="/">Home</a>
+         <a href="players">Players</a>
+         <a href="teams">Teams</a>
+         <a href="team_owners">Team Owners</a>
+         <a href="leagues">Leagues</a>
+         <a href="matches">Matches</a>
+         <a href="team_rosters">Players in Teams</a>
+      </nav>
+      <main>
+      <div id="edit">
+<h2>Update League Information:</h2>
+<form id="editLeague" action="/edit_league/{{data[0].leagueID}}" method="post">
+
+    <input type="hidden" name="leagueID" value="{{data[0].leagueID}}" id="LeagueID" required>
+   <label for="leaguename"><h3>League Name:</h3></label>
+   <input type="text" id="'leaguename" name="leaguename" value="{{data[0].leagueName}}" required>
+   <br>
+   <br>
+   <br>
+   <h3>Is the league active?</h3>
+
+<input type="radio" id="yes" name="active" value="1" {% if data[0].isActive == 1 %}checked{% endif %}>
+<label for="yes">Yes</label><br>
+<input type="radio" id="no" name="active" value="0" {% if data[0].isActive == 0 %}checked{% endif %}>
+<label for="no">No</label><br>
+   <br>
+    <input type="submit" value="Submit Edits" name="Submit_Edits" class="btn btn-primary" style="margin:.5rem;">
+     </form>
+
+   </div>
+
+   
+
+     
+
+   
+   </body>
+
+   <style>
+      nav {
+      text-align: center;
+      display: flex;
+      margin: 5px auto;
+      justify-content: center;
+      flex-wrap: wrap;
+      }
+
+
+
+      nav a {
+         border-radius: 5px;
+         color: var(--foggyGray);
+         font-size: 1.1em;
+         font-weight: bold;
+         margin-right: 20px;
+         padding: 5px 20px;
+         text-decoration: none;
+      }
+
+      h1 {
+         text-align: center;
+         font-weight: 700;
+      }
+      h2 {
+         text-align: center;
+
+      }
+
+      nav a:hover {
+         color: navy
+      }
+
+      footer {
+         line-height: 5px;
+         font-size: larger;
+         text-align: center;
+         padding: 5px;
+         margin: 0 auto;
+      }
+      table {
+width: 100%;
+border: 2px solid;
+
+      }
+
+      th {
+
+         height: 70px;
+         text-align: center;
+         border: 2px solid black;
+      }
+
+      td{
+
+         text-align: center;
+         border: 1px solid;
+      }
+      .formstyle1 {
+         width: 200px;
+         margin: 0 auto;
+         border-radius: 5px;
+         padding: 10px 20px;
+         display: flex;         
+         justify-content: center;
+         align-items: center;
+         border: 2px solid black;
+      }
+
+   </style>
+</html>

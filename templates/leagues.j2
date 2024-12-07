@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+{# Citation for the following
+Date: 12/2/24
+Adapted from Flask Starter App Guide
+Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py #}
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Fantasy Football Manager</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+      <meta>
+
+      
+   </head>
+   <body onload= "initPage()">
+      <header>
+         <h1>Fantasy Football Manager</h1>
+      </header>
+      <nav>
+         <a href="/">Home</a>
+         <a href="players">Players</a>
+         <a href="teams">Teams</a>
+         <a href="team_owners">Team Owners</a>
+         <a href="leagues">Leagues</a>
+         <a href="matches">Matches</a>
+         <a href="team_rosters">Players in Teams</a>
+      </nav>
+      <main>
+   
+
+<div id="edit">
+<h2>Update League Information:</h2>
+<form id="editLeague" action="/edit_league/{{data[0].leagueID}}" method="post">
+
+    <input type="hidden" name="leagueID" value="{{data[0].leagueID}}" id="LeagueID" required>
+   <label for="leaguename"><h3>League Name:</h3></label>
+   <input type="text" id="'leaguename" name="leaguename" placeholder="{{data[0].leagueName}}" required>
+   <br>
+   <br>
+   <br>
+   <h3>Is the league active?</h3>
+
+<input type="radio" id="yes" name="active" value="1" {% if data[0].isActive == 1 %}checked{% endif %}>
+<label for="yes">Yes</label><br>
+<input type="radio" id="no" name="active" value="0" {% if data[0].isActive == 0 %}checked{% endif %}>
+<label for="no">No</label><br>
+   <br>
+    <input type="submit" value="Submit Edits" name="Submit_Edits" class="btn btn-primary" style="margin:.5rem;">
+     </form>
+
+   </div>
+
+   <div id="insert">
+   
+   <h2> Add a League</h2>
+       <div>
+       <form id="insertLeague" action="/leagues" method="post">
+
+      <label for="leaguename"><h3>League Name:</h3></label>
+      <input type="text" id="leaguename" name="leaguename">
+      <br>
+      <br>
+      <br>
+      <h3>Is the league active?</h3>
+
+      <input type="radio" id="yes" name="active" value ="1">
+      <label for="yes">Yes</label><br>
+      <input type="radio" id="no"  name="active" value ="0">
+      <label for="no">No</label><br>
+      <br>
+      <input type="submit" value="Add League" id="Add_League" />
+        </form>
+      </div>
+
+     
+
+   </div>
+
+   <div id="browse">
+        
+       		<p><a href="#" onClick="newLeague()">Add New League</a> </p>
+
+
+   <h2>League Info</h2>
+      <table class="tablestyle1">
+      <thead>
+         <tr>
+            <th>League Id</th>
+            <th>League Name</th>
+            <th>League Active?</th>
+            <th>Edit</th>
+            <th>Delete</th>
+         </tr>
+         </thead>
+      <tr>
+      {% if data %}
+      {% for item in data %}
+      <tr>
+      {% for key in item.keys() %}
+      <td>{{item[key]}} </td>
+      {% endfor %}
+      <td><a href="/edit_league/{{item.leagueID}}" onclick="updateLeague()" class="btn btn-default">Edit</a></td>
+		<td><a href="/delete_league/{{item.leagueID}}" class="btn btn-default">Delete</a></td>
+      </tr> 
+      {% endfor %}
+      {% endif %}
+
+
+      </table>
+
+   </div>
+
+
+
+
+
+      </main>
+      <footer>
+         <p>&copy; 2024 </p>
+      </footer>
+      <script language="JavaScript">
+	function showform(dowhat) {
+		/*
+		 * four DIVS: browse, insert, update, delete
+		 * this function sets one visible the others not
+		 */
+		if(dowhat == 'update') {
+			document.getElementById('browse').style.display = 'none';			
+			document.getElementById('edit').style.display = 'block';
+         document.getElementById('insert').style.display = 'none';
+				
+		
+		} 
+      else if(dowhat == 'insert'){
+         document.getElementById('browse').style.display = 'none';			
+			document.getElementById('edit').style.display = 'none';
+         document.getElementById('insert').style.display = 'block';
+
+      }
+      else { //by default display browse
+			document.getElementById('browse').style.display = 'block';			
+			document.getElementById('edit').style.display = 'none';
+         document.getElementById('insert').style.display = 'none';
+			
+		}
+	}
+
+	function newLeague() {
+		showform('insert');
+	}
+
+	function updateLeague() {
+		showform('update');
+	}
+
+	function deleteLeague(leagueID) {
+		showform('delete');
+	}
+
+	function browseLeague() {
+      console.log('browseLeague() executed');
+		showform('browse');
+	}
+
+	function showAll() {
+		showform('all');
+	}
+   function initPage(){
+      console.log("Page Loaded");
+      browseLeague();
+   }
+	</script>
+   </body>
+
+   
+</html>

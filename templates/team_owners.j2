@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{# Citation for the following
+Date: 12/2/24
+Adapted from Flask Starter App Guide
+Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py #}
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Fantasy Football Manager</title>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+      <meta>
+   </head>
+   <body>
+      <header>
+         <h1>Fantasy Football Manager</h1>
+      </header>
+      <nav>
+         <a href="/">Home</a>
+         <a href="players">Players</a>
+         <a href="teams">Teams</a>
+         <a href="team_owners">Team Owners</a>
+         <a href="leagues">Leagues</a>
+         <a href="matches">Matches</a>
+         <a href="team_rosters">Players in Teams</a>
+      </nav>
+      <main>
+         <section>
+            <h2>Add Team Owner</h2>
+                <form action="/team_owners" method="POST">
+                     <fieldset>
+                        <legend>Team Owner Info</legend>
+                        <label for="name">User Name</label>
+                        <input type="text" name="userName" id="userName" placeholder="User Name" required>
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Email" required>
+                        <label for="dateOfBirth">Date of Birth</label>
+                        <input type="date" name="dateOfBirth" id="dateOfBirth">
+                     </fieldset>
+                  <button class="addnew">Add Team Owner</button>
+                </form>
+        </section>
+        <section>
+         <h2>Update Team Owner</h2>
+         <form action="/update_team_owner" method="POST">
+               <fieldset>
+                  <legend>Team Owner Info</legend>
+                  <label for="teamOwnerID">Team Owner ID</label>
+                  <input type="number" name="teamOwnerID" id="teamOwnerID" placeholder="Team Owner ID" required>
+                  <label for="name">User Name</label>
+                  <input type="text" name="userName" id="userName" placeholder="User Name" required>
+                  <label for="email">Email</label>
+                  <input type="email" name="email" id="email" placeholder="Email" required>
+                  <label for="dateOfBirth">Date of Birth</label>
+                  <input type="date" name="dateOfBirth" id="dateOfBirth">
+               </fieldset>
+            <button class="addnew">Submit Update</button>
+          </form>
+        </section>
+        <section>
+         <h1>Team Owners Data</h1>
+         <table>
+            <thead>
+               <th>Team Owner ID</th>
+               <th>User Name</th>
+               <th>Email</th>
+               <th>Date Of Birth</th>
+               <th>Delete</th>
+            </thead>
+            {% if team_owners_data %}
+            {% for owner in team_owners_data%}
+            <tr>
+               {% for key in owner%}
+               <td>{{ owner[key] }}</td>
+               {% endfor %}
+               <td><a href="/delete_owner/{{owner.teamOwnerID}}" class="btn btn-default">Delete</a></td>
+            {% endfor %}
+            </tr>
+            {% endif %}
+        </table> 
+      </section>
+   </main>
+   <footer>
+      <p>&copy; 2024 </p>
+   </footer>
+   </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{# Citation for the following
+Date: 12/2/24
+Adapted from Flask Starter App Guide
+Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py #}
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Fantasy Football Manager</title>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+      <meta>
+   </head>
+   <body>
+      <header>
+         <h1>Fantasy Football Manager</h1>
+      </header>
+      <nav>
+         <a href="/">Home</a>
+         <a href="players">Players</a>
+         <a href="teams">Teams</a>
+         <a href="team_owners">Team Owners</a>
+         <a href="leagues">Leagues</a>
+         <a href="matches">Matches</a>
+         <a href="team_rosters">Players in Teams</a>
+      </nav>
+      <main>
+         <section>
+            
+            <form action="/add_team" method="GET">
+               <button class="addnew">Add Team</button>
+            </form>
+         <section>
+         <section>
+            <h1 style="font-size:1.5em">Teams Data</h1>
+            <table>
+               <thead>
+                  <th>Team ID</th>
+                  <th>Name</th>
+                  <th>Wins</th>
+                  <th>Losses</th>
+                  <th>Team Fantasy Points</th>
+                  <th>Team Owner</th>
+                  <th>League</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+               </thead>
+               {% if teams_data %}
+               {% for team in teams_data%} 
+                  <tr>
+                     {% for key in team.keys()%}
+                     <td> {{team[key]}}</td>
+                     {% endfor %}
+                     <td><a href="update_team/{{team.teamID}}" class="btn btn-default">Edit</a></td>
+                     <td><a href="delete_team/{{team.teamID}}" class="btn btn-default">Delete</a></td>
+               {% endfor %}
+                  </tr>
+               {% endif %}
+            </table>
+        </section>
+      </main>
+      <footer>
+         <p>&copy; 2024 </p>
+      </footer>
+   </body>
+</html>

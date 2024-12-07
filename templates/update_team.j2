@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{# Citation for the following
+Date: 12/2/24
+Adapted from Flask Starter App Guide
+Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py #}
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Fantasy Football Manager</title>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+      <meta>
+   </head>
+   <body>
+      <header>
+         <h1>Fantasy Football Manager</h1>
+      </header>
+      <nav>
+         <a href="/">Home</a>
+         <a href="/players">Players</a>
+         <a href="/teams">Teams</a>
+         <a href="/team_owners">Team Owners</a>
+         <a href="/leagues">Leagues</a>
+         <a href="/matches">Matches</a>
+         <a href="/team_rosters">Players in Teams</a>
+      </nav>
+      <main>
+        <section>
+         <h2>Update Team</h2>
+         <form action="/update_team/{{team_data[0].teamID}}" method="POST">
+            <fieldset>
+               <legend>Team Info</legend>
+               <label for="name">Team Name</label>
+               <input type="name" name="name" id="name" value="{{team_data[0].teamName}}" required>
+               <label for="wins">Wins</label>
+               <input type="number" name="wins" id="wins" value="{{team_data[0].wins}}">
+               <label for="losses">Losses</label>
+               <input type="number" name="losses" id="losses" value="{{team_data[0].losses}}">
+               <label for="teamFantasyPoints">Team Fantasy Points</label>
+               <input type="number" name="teamFantasyPoints" id="teamFantasyPoints" value={{team_data[0].teamFantasyPoints}}>
+               <label for="teamOwnerName">Team Owner</label>
+               <select name="teamOwnerName" id="teamOwnerName">
+               {% if team_owner_names %} 
+                  {% for userName in team_owner_names%}
+                    <option value="{{userName['userName']}}"{%if userName.userName == team_data[0]['userName'] %}selected{%endif%}>{{userName['userName']}}</option>
+                  {% endfor %}
+               {% endif %}
+               </select>
+               <label for="leagueName">League</label>
+                <select name="leagueName" id="leagueName">
+                <option value="" selected>None</option>
+                {% if league_names %}
+                    {% for name in league_names%}
+                    <option value="{{name.leagueName}}"{%if name.leagueName == team_data[0]['leagueName'] %}selected{%endif%}>{{name.leagueName}}</option>
+                    {% endfor %}
+                {% endif %}
+                </select>
+            </fieldset>
+            <button class="addnew">Submit Update</button>
+          </form>
+        </section>
+      </main>
+      <footer>
+         <p>&copy; 2024 </p>
+      </footer>
+   </body>
+</html>
